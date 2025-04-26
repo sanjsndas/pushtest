@@ -32,12 +32,26 @@
   <h1>📲 Stay Updated!</h1>
   <p>Click below to allow push notifications from us.</p>
   <button id="notifyBtn">Enable Notifications</button>
-<div id="installBanner" style="position: fixed; top: 0; left: 0; right: 0; background-color: #FF6F61; color: white; text-align: center; padding: 10px; font-size: 16px; font-weight: bold;">
-  <p>🚀 Tap below to install this app on your Home Screen!</p>
-  <button onclick="alert('Please open in Safari and tap Add to Home Screen!')" style="background-color: #317EFB; color: white; padding: 10px 20px; font-size: 16px; border-radius: 5px; cursor: pointer;">
-    Install Now
-  </button>
+<div id="installSteps" style="display: none;">
+  <h3>Install the App on Your Home Screen</h3>
+  <ol>
+    <li>1. Open this website in **Safari**.</li>
+    <li>2. Tap the **Share** button at the bottom.</li>
+    <li>3. Choose **Add to Home Screen**.</li>
+  </ol>
+  <button onclick="closeInstallSteps()">Got It!</button>
 </div>
+
+<script>
+  function showInstallSteps() {
+    document.getElementById('installSteps').style.display = 'block';
+  }
+
+  function closeInstallSteps() {
+    document.getElementById('installSteps').style.display = 'none';
+  }
+</script>
+
 
   <script>
     // Register service worker
