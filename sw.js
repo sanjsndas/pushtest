@@ -1,12 +1,1 @@
-self.addEventListener('install', event => {
-  console.log('Service Worker installing.');
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', event => {
-  console.log('Service Worker activated.');
-});
-
-self.addEventListener('fetch', event => {
-  // Optional: add caching here if needed
-});
+importScripts("https://cdn.pushalert.co/sw-81083.js");
