@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#317EFB"/>
+  <title>Get Notified!</title>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/icon.png" />
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: sans-serif;
+      text-align: center;
+    }
+    button {
+      padding: 1em 2em;
+      font-size: 1.2em;
+      background-color: #317EFB;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>📲 Stay Updated!</h1>
+  <p>Click below to allow push notifications from us.</p>
+  <button id="notifyBtn">Enable Notifications</button>
+
+  <script>
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('Service Worker Registered'));
+    }
+
+    // Request notification permission
+    document.getElementById('notifyBtn').addEventListener('click', () => {
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          new Notification('🔔 Thanks!', {
+            body: 'You will now receive updates.',
+            icon: '/icon.png'
+          });
+        } else {
+          alert('❌ Permission denied.');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
