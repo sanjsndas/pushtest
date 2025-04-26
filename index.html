@@ -32,24 +32,17 @@
   <h1>📲 Stay Updated!</h1>
   <p>Click below to allow push notifications from us.</p>
   <button id="notifyBtn">Enable Notifications</button>
-<div id="installSteps" style="display: none;">
-  <h3>Install the App on Your Home Screen</h3>
-  <ol>
-    <li>1. Open this website in **Safari**.</li>
-    <li>2. Tap the **Share** button at the bottom.</li>
-    <li>3. Choose **Add to Home Screen**.</li>
-  </ol>
-  <button onclick="closeInstallSteps()">Got It!</button>
+<div id="popupReminder" style="display: none; position: fixed; bottom: 20px; left: 0; right: 0; background-color: #317EFB; color: white; padding: 10px; text-align: center;">
+  <p>Want quicker access? Add this app to your Home Screen!</p>
+  <button onclick="alert('Open this site in Safari and tap Add to Home Screen!')" style="background-color: #ff6347; padding: 10px 20px; color: white; font-size: 16px; border-radius: 5px;">
+    Add to Home Screen
+  </button>
 </div>
 
 <script>
-  function showInstallSteps() {
-    document.getElementById('installSteps').style.display = 'block';
-  }
-
-  function closeInstallSteps() {
-    document.getElementById('installSteps').style.display = 'none';
-  }
+  setTimeout(() => {
+    document.getElementById('popupReminder').style.display = 'block';
+  }, 15000); // Show reminder after 5 seconds
 </script>
 
 
