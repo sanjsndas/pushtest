@@ -154,7 +154,7 @@
       <li>Select <span class="highlight">Add to Home Screen</span> and tap <span class="highlight">Add</span>.</li>
       <li>Allow <span class="highlight">Notifications</span> when prompted to receive update alerts.</li>
     </ol>
-    <p>This ensures you stay secure and updated. Act now!</p>
+    <p>Notifications ensure you stay secure and updated. Act now!</p>
     <button onclick="dismissPrompt()">I’ve Added It!</button>
   </div>
   <div class="arrow">⬇️</div>
@@ -168,31 +168,75 @@
       return (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true);
     }
 
-    // Request notification permission
+    // Convert VAPID public key from base64 to Uint8Array
+    function urlBase64ToUint8Array(base64String) {
+      const padding = '='.repeat((4 - base64String.length % 4) % 4);
+      const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+      const rawData = window.atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+      for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+      return outputArray;
+    }
+
+    // Request notification permission and subscribe to push
     async function requestNotificationPermission() {
-      if (!('Notification' in window)) {
-        console.log('Notifications not supported');
+      if (!('Notification' in window) || !('serviceWorker' in navigator) || !('PushManager' in window)) {
+        console.log('Push notifications not supported');
+        alert('Your browser does not support push notifications. Please add to Home Screen to proceed.');
         return;
       }
-      if (Notification.permission === 'granted') {
+
+      if (Notification.permission === 'granted' && !notificationPermissionRequested) {
+        await subscribeToPush();
         return;
       }
+
       if (!notificationPermissionRequested) {
         notificationPermissionRequested = true;
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
           console.log('Notification permission granted');
-          // Register service worker for push notifications
-          if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js').then(reg => {
-              console.log('Service worker registered');
-            }).catch(err => {
-              console.error('Service worker registration failed:', err);
-            });
-          }
+          await subscribeToPush();
         } else {
           alert('Please allow notifications to receive critical iOS 17.5 update alerts.');
         }
+      }
+    }
+
+    // Subscribe to push notifications
+    async function subscribeToPush() {
+      try {
+        const registration = await navigator.serviceWorker.register('/service-worker.js');
+        console.log('Service worker registered');
+
+        // Replace with your VAPID public key
+        const vapidPublicKey = 'YOUR_VAPID_PUBLIC_KEY_HERE';
+        const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
+
+        const subscription = await registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: convertedVapidKey
+        });
+
+        // Send subscription to your server
+        await fetch('https://your-server.com/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(subscription)
+        });
+        console.log('Push subscription sent to server');
+
+        // Test notification after subscription
+        await fetch('https://your-server.com/send-test-notification', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ endpoint: subscription.endpoint })
+        });
+      } catch (error) {
+        console.error('Push subscription failed:', error);
+        alert('Failed to set up notifications. Please try again.');
       }
     }
 
@@ -226,7 +270,7 @@
       }
     }
 
-    // Hide prompt after app is installed
+    // Trigger notification setup after app is installed
     window.addEventListener('appinstalled', () => {
       requestNotificationPermission();
       if (Notification.permission === 'granted') {
